@@ -3,8 +3,8 @@ package com.jhnuxer.game;
 import com.jhnuxer.game.entity.Entity;
 
 public class CollisionRadius implements Collisionable {
-  Entity ent;
-  float r;
+  public Entity ent;
+  public float r;
 
   public CollisionRadius(Entity ent,float r) {
     this.ent = ent;

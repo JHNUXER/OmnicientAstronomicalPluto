@@ -45,12 +45,37 @@ public class Level implements Runnable {
   public Entity[] scanEntities() {
     return entities.toArray(new Entity[0]);
   }
+  public Entity[] scanEntities(EntityFilter[] filters) {
+    Entity[] ents = scanEntities();
+    for (EntityFilter fil : filters) {
+      ents = fil.filter(ents);
+    }
+    return ents;
+  }
 
   public void addEntity(Entity ent) {
     entities.add(ent);
     if (ent.getLevel() != this) ent.setLevel(this);
   }
 
+  public Entity getClosestEnemy(Entity entt) {
+    Team t = entt.getTeam();
+    float x = entt.getX();
+    float y = entt.getY();
+    float z = entt.getZ();
+    Entity cl = null;
+    float cld = 0F;
+    for (Entity ent : scanEntities()) {
+      if (ent != null && ent != entt) {
+        if (cl == null || (cld > ent.distFrom(x,y,z) && ent.getTeam().isHostileTo(t))) {
+          cl = ent;
+          cld = ent.distFrom(x,y,z);
+        }
+      }
+    }
+    if (cl == this) System.out.println("CL IS THIS");
+    return cl;
+  }
   public Entity getClosestEnemy(Team t,float x,float y,float z) {
     Entity cl = null;
     float cld = 0F;
@@ -65,6 +90,11 @@ public class Level implements Runnable {
     return cl;
   }
 
+  public boolean shouldDelete(Entity ent) {
+    if (ent.isMarkedForDeletion()) return true;
+    return ent.getHealth() < 1 && !ent.isDying();
+  }
+
   /**
    * Iterates over a scan of the entities list, ticks each entity,
    * then checks if the entity should be deleted, and deletes it
@@ -76,7 +106,7 @@ public class Level implements Runnable {
       //        entities list, there are null values.
       if (ent != null) {
         ent.tick();
-        if (ent.isMarkedForDeletion() && entities.contains(ent)) entities.remove(ent);
+        if (shouldDelete(ent) && entities.contains(ent)) entities.remove(ent);
       }
     }
   }

@@ -1,5 +1,7 @@
 package com.jhnuxer.game;
 
+import com.jhnuxer.game.entity.*;
+
 public interface Weapon {
 
   /**
@@ -49,6 +51,13 @@ public interface Weapon {
   public float getPrimaryDamageRadius();
   public float getSecondaryDamageRadius();
   public boolean canAttackKindOf(String s);
-  public void fire(Entity targ);
+  public void fire(Vec3 pos,Entity targ);
+  public boolean canFire();
+  public void tick();
+
+  public default boolean isTargetInRange(Vec3 p,Vec3 t) {
+    float dist = t.distFrom(p);
+    return dist <= getMaxRange() && dist >= getMinRange();
+  }
 
 }

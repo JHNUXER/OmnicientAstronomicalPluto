@@ -31,6 +31,12 @@ public interface HasPosition {
   public default float distFrom(HasPosition p) {
     return distFrom(p.getPos3());
   }
+  public default float distFrom(float x,float y) {
+    return distFrom(x,y,getZ());
+  }
+  public default float distFrom(Vec2 v) {
+    return distFrom(v.x,v.y);
+  }
 
   public static float dist(float x1,float y1,float z1,float x2,float y2,float z2) {
     float dx = x2-x1;

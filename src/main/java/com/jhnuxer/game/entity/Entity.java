@@ -5,7 +5,7 @@ import java.awt.*;
 import com.jhnuxer.game.*;
 import com.jhnuxer.game.graphics.*;
 
-public interface Entity extends HasPosition,Tickable {
+public interface Entity extends HasPosition,Tickable,HasHealth {
 
   // ACTIONS:
   public void die();
@@ -39,7 +39,7 @@ public interface Entity extends HasPosition,Tickable {
 
 
   public default Entity getClosestEnemy() {
-    return getLevel().getClosestEnemy(getTeam(),getX(),getY());
+    return getLevel().getClosestEnemy(this);
   }
 
 }
