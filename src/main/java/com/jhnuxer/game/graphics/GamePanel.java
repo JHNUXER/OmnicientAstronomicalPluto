@@ -50,7 +50,6 @@ public class GamePanel extends JTextField implements Runnable,MouseMotionListene
   public void run() {
     while (running) {
       if (System.nanoTime() - lt >= 16666667) {
-
         repaint();
       }
     }
