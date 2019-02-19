@@ -18,6 +18,7 @@ public interface HasPosition {
   public default void move(Vec2 v,float z) { move(v); addZ(z); }
   public default void move(Vec3 v) { move(v.x,v.y,v.z); }
   public default void move(int x,int y,int z) { move(x,y); addZ((float)z); }
+  public default Vec2 getPos() { return getPos2(); }
   public default Vec2 getPos2() { return new Vec2(getX(),getY()); }
   public default Vec3 getPos3() { return new Vec3(getX(),getY(),getZ()); }
 

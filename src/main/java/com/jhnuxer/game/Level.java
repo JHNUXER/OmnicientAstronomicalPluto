@@ -57,6 +57,10 @@ public class Level implements Runnable {
     entities.add(ent);
     if (ent.getLevel() != this) ent.setLevel(this);
   }
+  public void removeEntity(Entity ent) {
+    entities.remove(ent);
+    if (ent.getLevel() == this) ent.setLevel(null);
+  }
 
   public Entity getClosestEnemy(Entity entt) {
     Team t = entt.getTeam();
