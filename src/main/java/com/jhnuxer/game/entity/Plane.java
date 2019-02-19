@@ -5,7 +5,7 @@ import java.awt.*;
 import com.jhnuxer.game.*;
 import com.jhnuxer.game.graphics.*;
 
-public class Plane extends AEntity {
+public class Plane extends AEntity implements Collisionable {
   public static final float SQRT3 = (float)Math.sqrt(3);
 
   static float fHeight = 100F;
@@ -28,8 +28,9 @@ public class Plane extends AEntity {
     //Level l,Team t,float x,float y,float z,String name,String kindOf,float h
     super(l,f,x,y,z,"PLANE","AIRCRAFT CAN_ATTACK",320F);
     bearing = new Vec2(-1,0).d(0F);
-    poly = new VPoly2(new Vec2(0F,-22.5F),new Vec2(14F,22.5F),new Vec2(-14F,22.5F));
+    poly = new VPoly2(new Vec2(0F,-22.5F),new Vec2(14F,22.5F),new Vec2(-14F,22.5F)).rotate(0.5F*(float)Math.PI);
     moveTarg = getPos2().copy();
+    locomotor = new ConstThrustFlightLocomotor(this,speed);
   }
 
   public VPoly2 setupGunSpreadPoly() {
@@ -52,6 +53,8 @@ public class Plane extends AEntity {
     bearing.r(bearing.r()+f);
   }
 
+  public Vec2 getBearing() { return bearing.copy(); }
+  public void setBearing(Vec2 b) { bearing.r(b.r()); }
   public void fire(int weap,Entity e) {
     Vec2 q = e.getPos().sub(getPos()).m(1F);
     // Missile fb = new Missile(getLevel(),getTeam(),getX(),getY(),q,e);
@@ -84,8 +87,13 @@ public class Plane extends AEntity {
   }
 
   public float getDrawAlt() {
-    return (getZ()/SQRT3)*2F;
+    // return (getZ()/SQRT3)*2F;
+    return getZ();
   }
+
+  public boolean overlaps(Vec2 v) { return poly.rotated(bearing.r()).toPoly(getPos()).contains(v.round()); }
+  public boolean overlaps(Vec3 v) { return poly.rotated(bearing.r()).toPoly(getPos()).contains(Math.round(v.x),Math.round(v.y)) && Math.abs(v.z - getZ()) <= 5; }
+  public Vec3 getPosition() { return getPos3(); }
 
   @Override
   public void draw3D(Graphics3D g) {
@@ -106,7 +114,7 @@ public class Plane extends AEntity {
   }
   @Override
   public Collisionable getCollisionBoundary() {
-    return colR;
+    return this;
   }
 
   @Override
@@ -125,9 +133,10 @@ public class Plane extends AEntity {
         if (canFireMG()) fireMG(entt);
       }
     }
-    Vec2 vel = new Vec2(speed,0);
-    vel.d(bearing.d()-90);
-    move(vel);
+    // Vec2 vel = new Vec2(speed,0);
+    // vel.d(bearing.d()-90);
+    // move(vel);
+    AEntityTick();
     // Combat
     Entity ent = getClosestEnemy();
     if (ent != null) {
@@ -137,15 +146,15 @@ public class Plane extends AEntity {
     }
     tickFireDelays();
     if (getHealth() < 1 && !isDying()) {
-      dyingTime = Math.round(height*fallTimeFactor+(Main.RAND.nextInt(60)+10));
-      Person person = new Person(l,f,getX(),getY(),getZ());
+      dyingTime = Math.round(getZ()*fallTimeFactor+RNG.i32(10,70));
+      Person person = new Person(getLevel(),getTeam(),getX(),getY(),getZ());
       person.weapon = new BrawlerWeapon();
       // Parachute para = new Parachute(l,f,x,y,person);
       getLevel().addEntity(person);
     }
     if (dyingTime > 0) {
       dyingTime--;
-      if (dyingTime % fallTimeFactor == 0 && height > 0) height--;
+      if (dyingTime % fallTimeFactor == 0 && getZ() > 0) setZ(getZ()-1);
       // for (Entity ent0 : l.getEntitiesInVPoly2(poly.rotated(bearing.r()),x,y)) {
       //   ent0.takeDamage(DamageType.CRUSHING,200);
       //   ent0.takeDamage(DamageType.CUTTING,200);

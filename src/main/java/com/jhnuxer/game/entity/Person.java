@@ -12,7 +12,12 @@ public class Person extends AEntity {
   CollisionRadius cr;
   public Weapon weapon;
 
-  public Person(Level l,Team t,int x,int y) {
+  public Person(Level l,Team t,float x,float y) {
+    // Level l,Team t,float x,float y,float z,String name,String kindOf,float h
+    super(l,t,x,y,0F,"HUMAN",KIND_OF,100F);
+    cr = new CollisionRadius(this,3.5F);
+  }
+  public Person(Level l,Team t,float x,float y,float z) {
     // Level l,Team t,float x,float y,float z,String name,String kindOf,float h
     super(l,t,x,y,0F,"HUMAN",KIND_OF,100F);
     cr = new CollisionRadius(this,3.5F);

@@ -17,6 +17,7 @@ public abstract class AEntity implements Entity {
   boolean marked = false;
   int dyingTime = 0;
   int dyingTimerLength = 0;
+  Locomotor locomotor;
 
   public AEntity(Level l,Team t,float x,float y,float z,String name,String kindOf,float h) {
     this.level = l;
@@ -48,9 +49,9 @@ public abstract class AEntity implements Entity {
   }
   public void draw(Graphics g,int offsx,int offsy) {
     g.setColor(getTeam().getColor());
-    g.fillRect(Math.round(getX()-3),Math.round(getY()-3),7,7);
+    g.fillRect(Math.round(getX()-3)+offsx,Math.round(getY()-3)+offsy,7,7);
     g.setColor(Color.BLACK);
-    g.drawRect(Math.round(getX()-3),Math.round(getY()-3),7,7);
+    g.drawRect(Math.round(getX()-3)+offsx,Math.round(getY()-3)+offsy,7,7);
   }
   public void draw3D(Graphics3D g) { }
   public void markForDeletion() { marked = true; }
@@ -75,5 +76,12 @@ public abstract class AEntity implements Entity {
       kindOf.remove(s);
     }
   }
+  @Override
+  public void tick() {
+    AEntityTick();
+  }
   // </Entity>
+  public void AEntityTick() {
+    if (locomotor != null) locomotor.tick();
+  }
 }

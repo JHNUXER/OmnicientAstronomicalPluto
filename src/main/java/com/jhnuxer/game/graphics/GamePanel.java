@@ -13,6 +13,7 @@ public class GamePanel extends JTextField implements Runnable,MouseMotionListene
   Point mp = new Point(0,0);
   Thread thread = new Thread(this);
   boolean running = true;
+  public Entity followTarget = null;
   long lt = 0;
 
   public GamePanel(Level l,int w,int h) {
@@ -36,6 +37,10 @@ public class GamePanel extends JTextField implements Runnable,MouseMotionListene
   public void run() {
     while (running) {
       if (System.nanoTime() - lt >= 16666667) {
+        if (followTarget != null) {
+          offsx = Math.round(followTarget.getX());
+          offsy = Math.round(followTarget.getY());
+        }
         repaint();
       }
     }

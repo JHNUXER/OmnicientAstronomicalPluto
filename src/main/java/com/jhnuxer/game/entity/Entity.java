@@ -30,11 +30,13 @@ public interface Entity extends HasPosition,Tickable,HasHealth {
   public String[] getTypeOf();
   public int getSlotCount();
   public String getName();
+  public default Vec2 getBearing() { return new Vec2(0,1).d(0); }
 
   // SETTERS:
   public void setTeam(Team t);
   public void setLevel(Level l);
   public void setTypeOf(String s,boolean b);
+  public default void setBearing(Vec2 v) { }
 
 
 
