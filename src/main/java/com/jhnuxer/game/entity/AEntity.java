@@ -33,6 +33,7 @@ public abstract class AEntity implements Entity {
   public float getZ() { return pos.z; }
   public void setX(float x) { pos.x=x; }
   public void setY(float y) { pos.y=y; }
+  public void setZ(float z) { pos.z=z; }
   // </HasPosition>
   // <HasHealth>
   public float getHealth() { return hp; }
