@@ -3,6 +3,7 @@ package com.jhnuxer.game;
 import java.util.*;
 
 public class Damage {
+
   HashMap<DamageType,Integer> values = new HashMap<DamageType,Integer>();
 
   public Damage() { }
@@ -36,4 +37,5 @@ public class Damage {
     for (DamageType t : types()) c.set(t,get(t)-b.get(t));
     return c;
   }
+
 }

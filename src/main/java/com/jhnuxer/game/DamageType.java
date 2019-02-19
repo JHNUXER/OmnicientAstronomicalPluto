@@ -1,0 +1,6 @@
+package com.jhnuxer.game;
+
+public enum DamageType {
+  BLUNT,CUTTING,PIERCING,ARMOR_PIERCING,BURNING,
+  EXPLOSION,RADIATION,LASER,CRUSHING;
+}
