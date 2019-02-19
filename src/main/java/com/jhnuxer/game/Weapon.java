@@ -49,5 +49,6 @@ public interface Weapon {
   public float getPrimaryDamageRadius();
   public float getSecondaryDamageRadius();
   public boolean canAttackKindOf(String s);
+  public void fire(Entity targ);
 
 }

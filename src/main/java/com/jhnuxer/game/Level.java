@@ -46,6 +46,25 @@ public class Level implements Runnable {
     return entities.toArray(new Entity[0]);
   }
 
+  public void addEntity(Entity ent) {
+    entities.add(ent);
+    if (ent.getLevel() != this) ent.setLevel(this);
+  }
+
+  public Entity getClosestEnemy(Team t,float x,float y,float z) {
+    Entity cl = null;
+    float cld = 0F;
+    for (Entity ent : scanEntities()) {
+      if (ent != null) {
+        if (cl == null || (cld > ent.distFrom(x,y,z) && ent.getTeam().isHostileTo(t))) {
+          cl = ent;
+          cld = ent.distFrom(x,y,z);
+        }
+      }
+    }
+    return cl;
+  }
+
   /**
    * Iterates over a scan of the entities list, ticks each entity,
    * then checks if the entity should be deleted, and deletes it

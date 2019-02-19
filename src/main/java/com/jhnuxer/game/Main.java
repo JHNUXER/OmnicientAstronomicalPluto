@@ -12,7 +12,8 @@ public class Main {
     Level level = new Level();
     Team tRed = new Team(level,"RED",Color.RED);
     Team tBlue = new Team(level,"BLUE",Color.BLUE);
-    // TODO: Add entities for testing...
+    Person p = new Person(level,tRed,400,300);
+    level.addEntity(p);
     JFrame frame = new JFrame();
     GamePanel gp = new GamePanel(level,800,600);
     frame.add(gp);

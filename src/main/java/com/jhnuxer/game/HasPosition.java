@@ -20,4 +20,22 @@ public interface HasPosition {
   public default void move(int x,int y,int z) { move(x,y); addZ((float)z); }
   public default Vec2 getPos2() { return new Vec2(getX(),getY()); }
   public default Vec3 getPos3() { return new Vec3(getX(),getY(),getZ()); }
+
+  // DISTANCE:
+  public default float distFrom(float x,float y,float z) {
+    return dist(getX(),getY(),getZ(),x,y,z);
+  }
+  public default float distFrom(Vec3 v) {
+    return distFrom(v.x,v.y,v.z);
+  }
+  public default float distFrom(HasPosition p) {
+    return distFrom(p.getPos3());
+  }
+
+  public static float dist(float x1,float y1,float z1,float x2,float y2,float z2) {
+    float dx = x2-x1;
+    float dy = y2-y1;
+    float dz = z2-z1;
+    return (float)Math.sqrt(dx*dx+dy*dy+dz*dz);
+  }
 }

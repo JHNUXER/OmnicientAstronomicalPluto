@@ -46,7 +46,12 @@ public abstract class AEntity implements Entity {
     dyingTime = dyingTimerLength;
     onDying();
   }
-  public void draw(Graphics g,int offsx,int offsy) { }
+  public void draw(Graphics g,int offsx,int offsy) {
+    g.setColor(getTeam().getColor());
+    g.fillRect(Math.round(getX()-3),Math.round(getY()-3),7,7);
+    g.setColor(Color.BLACK);
+    g.drawRect(Math.round(getX()-3),Math.round(getY()-3),7,7);
+  }
   public void draw3D(Graphics3D g) { }
   public void markForDeletion() { marked = true; }
   public boolean isDying() { return dyingTime > 0; }

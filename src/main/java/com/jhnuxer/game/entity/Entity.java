@@ -36,4 +36,10 @@ public interface Entity extends HasPosition,Tickable {
   public void setLevel(Level l);
   public void setTypeOf(String s,boolean b);
 
+
+
+  public default Entity getClosestEnemy() {
+    return getLevel().getClosestEnemy(getTeam(),getX(),getY());
+  }
+
 }
