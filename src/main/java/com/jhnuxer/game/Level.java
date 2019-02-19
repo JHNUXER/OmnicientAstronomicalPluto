@@ -5,7 +5,7 @@ import java.util.*;
 import com.jhnuxer.game.entity.*;
 
 public class Level implements Runnable {
-  public static final java.text.DecimalFormat PFORMAT = new DecimalFormat("0.00");
+  public static final java.text.DecimalFormat PFORMAT = new java.text.DecimalFormat("0.00");
 
   final Team neutralTeam;
   ArrayList<Team> teams = new ArrayList<Team>();
