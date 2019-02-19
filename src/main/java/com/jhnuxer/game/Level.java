@@ -5,6 +5,8 @@ import java.util.*;
 import com.jhnuxer.game.entity.*;
 
 public class Level implements Runnable {
+  public static final java.text.DecimalFormat PFORMAT = new DecimalFormat("0.00");
+
   final Team neutralTeam;
   ArrayList<Team> teams = new ArrayList<Team>();
   ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -21,7 +23,7 @@ public class Level implements Runnable {
   }
 
   public double performance() {
-    return ((1D/(double)ltt)/1000000000D);
+    return (1000000000D/(double)ltt);
   }
 
   @Override
@@ -34,7 +36,7 @@ public class Level implements Runnable {
         ltt = lttc;
       }
       if (System.nanoTime() - lo >= 1000000000) {
-        System.out.println("PERFORMANCE: "+performance()+"tps");
+        System.out.println("PERFORMANCE: "+PFORMAT.format(performance())+"tps");
         lo = System.nanoTime();
       }
     }
