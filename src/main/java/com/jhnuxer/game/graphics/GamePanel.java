@@ -20,6 +20,8 @@ public class GamePanel extends JTextField implements Runnable,MouseMotionListene
     Dimension d = new Dimension(w,h);
     setMinimumSize(d);
     setPreferredSize(d);
+    addMouseMotionListener(this);
+    thread.start();
   }
 
   @Override
