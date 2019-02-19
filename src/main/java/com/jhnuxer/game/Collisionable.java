@@ -1,3 +1,5 @@
+package com.jhnuxer.game;
+
 public interface Collisionable {
   public boolean overlaps(Vec2 v);
   public boolean overlaps(Vec3 v);
