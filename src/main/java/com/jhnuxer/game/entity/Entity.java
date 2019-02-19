@@ -9,6 +9,7 @@ public interface Entity extends HasPosition,Tickable {
 
   // CHECKS:
   public boolean isDying();
+  public boolean isTypeOf(String s);
 
   // EVENTS:
   public void onDie();
@@ -17,8 +18,13 @@ public interface Entity extends HasPosition,Tickable {
 
   // GETTERS:
   public Collisionable getCollisionBoundary();
+  public Team getTeam();
+  public Level getLevel();
+  public String[] getTypeOf();
 
   // SETTERS:
-  public void setLevel();
+  public void setTeam(Team t);
+  public void setLevel(Level l);
+  public void setTypeOf(String s,boolean b);
 
 }
