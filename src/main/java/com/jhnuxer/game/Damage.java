@@ -21,6 +21,9 @@ public class Damage {
     return new ArrayList<DamageType>(values.keySet()).toArray(new DamageType[0]);
   }
 
+  public static DamageType type(String s) {
+    return DamageType.valueOf(s);
+  }
   public Damage copy() {
     Damage c = new Damage();
     for (DamageType t : types()) c.set(t,get(t));

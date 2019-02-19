@@ -1,5 +1,7 @@
 package com.jhnuxer.game;
 
+import java.util.Random;
+
 public class RNG {
   public static final Random RAND = new Random();
 
