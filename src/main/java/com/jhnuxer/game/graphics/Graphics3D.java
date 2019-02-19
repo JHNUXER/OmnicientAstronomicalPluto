@@ -34,7 +34,9 @@ public class Graphics3D extends GraphicsWrapper {
     Matrix3x1D c = new Matrix3x1D(cameraPos);
     Vec3 d = x.mul(y).mul(z).mul(a.sub(c)).toVec3();
     float ezdz = e.z/d.z;
-    return new Vec2(ezdz*d.x+e.x,ezdz*d.y+e.y);
+    Vec2 r = new Vec2(ezdz*d.x+e.x,ezdz*d.y+e.y);
+    System.out.println("TO2D: "+r);
+    return r;
   }
   public void drawLine(int x0,int y0,int z0,int x1,int y1,int z1) {
     Vec2 a = to2D(new Vec3(x0,y0,z0));

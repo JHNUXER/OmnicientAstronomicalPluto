@@ -28,7 +28,7 @@ public class Plane extends AEntity implements Collisionable {
     //Level l,Team t,float x,float y,float z,String name,String kindOf,float h
     super(l,f,x,y,z,"PLANE","AIRCRAFT CAN_ATTACK",320F);
     bearing = new Vec2(-1,0).d(0F);
-    poly = new VPoly2(new Vec2(0F,-22.5F),new Vec2(14F,22.5F),new Vec2(-14F,22.5F)).rotate(0.5F*(float)Math.PI);
+    poly = new VPoly2(new Vec2(0F,-22.5F),new Vec2(14F,22.5F),new Vec2(-14F,22.5F))/*.rotate(0.5F*(float)Math.PI)*/;
     moveTarg = getPos2().copy();
     locomotor = new ConstThrustFlightLocomotor(this,speed);
   }
@@ -54,7 +54,7 @@ public class Plane extends AEntity implements Collisionable {
   }
 
   public Vec2 getBearing() { return bearing.copy(); }
-  public void setBearing(Vec2 b) { bearing.r(b.r()); }
+  public void setBearing(Vec2 b) { bearing = b.copy().m(1F); }
   public void fire(int weap,Entity e) {
     Vec2 q = e.getPos().sub(getPos()).m(1F);
     // Missile fb = new Missile(getLevel(),getTeam(),getX(),getY(),q,e);
@@ -119,6 +119,7 @@ public class Plane extends AEntity implements Collisionable {
 
   @Override
   public void tick() {
+    System.out.println("X: "+getX()+" Y: "+getY()+" Z: "+getZ());
     if (!isDying() && distFrom(moveTarg) <= 3F) {
       bearing.d(bearing.d()+16);
     } else if (!isDying()) {

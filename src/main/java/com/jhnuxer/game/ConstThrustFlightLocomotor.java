@@ -18,7 +18,19 @@ public class ConstThrustFlightLocomotor extends Locomotor {
   }
 
   public void tick() {
-    ent.move(ent.getBearing().m(speed));
+    if (ent.getBearing().x == Float.NaN || ent.getBearing().y == Float.NaN) {
+      ent.setBearing(new Vec2(0,1).d(0));
+    }
+    Vec2 vel = new Vec2(speed,0);
+    vel.d(ent.getBearing().d()-90);
+    if (vel.x == Float.NaN || vel.y == Float.NaN) {
+      System.out.println("ADJUSTING...");
+      ent.setBearing(new Vec2(0,1).d(0));
+      vel = new Vec2(0,1).d(0).m(speed);
+    }
+    System.out.println(vel);
+    ent.move(vel);
+    // ent.move(ent.getBearing().m(speed));
   }
 
 }

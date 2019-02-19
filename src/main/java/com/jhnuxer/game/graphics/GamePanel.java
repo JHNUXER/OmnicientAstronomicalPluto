@@ -28,19 +28,29 @@ public class GamePanel extends JTextField implements Runnable,MouseMotionListene
   @Override
   protected void paintComponent(Graphics g) {
     g.clearRect(0,0,getWidth(),getHeight());
-    for (Entity ent : level.scanEntities()) {
-      ent.draw(g,offsx,offsy);
+    int xq = offsx;
+    int yq = offsy;
+    if (followTarget != null) {
+      xq = Math.round(followTarget.getX());
+      yq = Math.round(followTarget.getY());
     }
+    for (Entity ent : level.scanEntities()) {
+      ent.draw(g,xq,yq);
+    }
+    Graphics3D g3d = new Graphics3D(g);
+    g3d.fillPolygon(new VPoly3(new float[][] {
+      {0,0,-2},
+      {10,0,-2},
+      {10,10,-2},
+      {0,10,-2}
+    }));
   }
 
   @Override
   public void run() {
     while (running) {
       if (System.nanoTime() - lt >= 16666667) {
-        if (followTarget != null) {
-          offsx = Math.round(followTarget.getX());
-          offsy = Math.round(followTarget.getY());
-        }
+
         repaint();
       }
     }
