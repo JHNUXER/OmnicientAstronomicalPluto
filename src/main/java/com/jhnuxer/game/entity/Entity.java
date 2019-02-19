@@ -6,6 +6,8 @@ public interface Entity extends HasPosition,Tickable {
 
   // ACTIONS:
   public void die();
+  public void draw(Graphics g);
+  public void draw3D(Graphics3D g);
 
   // CHECKS:
   public boolean isDying();

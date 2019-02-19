@@ -1,3 +1,5 @@
+package com.jhnuxer.game;
+
 public interface Weapon {
 
   /**
@@ -34,6 +36,13 @@ public interface Weapon {
    *         this weapon
    */
   public int getDelayBetweenShots();
+
+  /**
+   * The number of shots this weapon can fire before reloading
+   *
+   * @return The number of shots this weapon can fire before
+   *         reloading
+   */
   public int getClipSize();
   public Damage getPrimaryDamage();
   public Damage getSecondaryDamage();
